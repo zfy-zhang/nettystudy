@@ -34,14 +34,16 @@ public class NettyClient {
                 // 2.指定 IO 类型为 NIO
                 .channel(NioSocketChannel.class)
                 // 绑定自定义属性到 channel
-                .attr(AttributeKey.newInstance("clientName"), "nettyClient")
+//                .attr(AttributeKey.newInstance("clientName"), "nettyClient")
                 // 设置TCP底层属性
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000).option(ChannelOption.SO_KEEPALIVE, true).option(ChannelOption.TCP_NODELAY, true)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
                 // 3.IO 处理逻辑
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
-                        ch.pipeline().addLast(new FirstClientHandler());
+                        ch.pipeline().addLast(new ClientHandler());
                     }
                 });
 

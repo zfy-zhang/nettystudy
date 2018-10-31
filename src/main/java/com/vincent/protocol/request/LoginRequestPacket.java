@@ -1,5 +1,6 @@
-package com.vincent.protocol.command;
+package com.vincent.protocol.request;
 
+import com.vincent.protocol.command.Packet;
 import lombok.Data;
 
 import static com.vincent.protocol.command.Command.LOGIN_REQUEST;
@@ -13,7 +14,7 @@ import static com.vincent.protocol.command.Command.LOGIN_REQUEST;
 @Data
 public class LoginRequestPacket extends Packet {
 
-    private Integer userId;
+    private String userId;
 
     private String username;
 
@@ -21,7 +22,7 @@ public class LoginRequestPacket extends Packet {
 
 
     @Override
-    public Byte getCommmand() {
+    public Byte getCommand() {
         return LOGIN_REQUEST;
     }
 }
