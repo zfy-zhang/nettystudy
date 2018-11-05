@@ -1,8 +1,8 @@
 package com.vincent.client;
 
-import com.vincent.protocol.command.Packet;
+import com.vincent.protocol.Packet;
 import com.vincent.protocol.request.LoginRequestPacket;
-import com.vincent.protocol.command.PacketCodeC;
+import com.vincent.protocol.PacketCodeC;
 import com.vincent.protocol.response.LoginResponsePacket;
 import com.vincent.protocol.response.MessageResponsePacket;
 import com.vincent.util.LoginUtil;

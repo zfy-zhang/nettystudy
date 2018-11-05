@@ -1,6 +1,6 @@
 package com.vincent.protocol.response;
 
-import com.vincent.protocol.command.Packet;
+import com.vincent.protocol.Packet;
 import lombok.Data;
 
 import static com.vincent.protocol.command.Command.LOGIN_RESPONSE;

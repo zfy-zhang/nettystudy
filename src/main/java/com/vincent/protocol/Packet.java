@@ -1,4 +1,4 @@
-package com.vincent.protocol.command;
+package com.vincent.protocol;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

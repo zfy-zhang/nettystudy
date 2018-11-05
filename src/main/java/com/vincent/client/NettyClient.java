@@ -1,6 +1,6 @@
 package com.vincent.client;
 
-import com.vincent.protocol.command.PacketCodeC;
+import com.vincent.protocol.PacketCodeC;
 import com.vincent.protocol.request.MessageRequestPacket;
 import com.vincent.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
@@ -12,7 +12,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.AttributeKey;
 
 import java.util.Date;
 import java.util.Scanner;

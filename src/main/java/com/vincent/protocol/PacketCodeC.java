@@ -1,4 +1,4 @@
-package com.vincent.protocol.command;
+package com.vincent.protocol;
 
 import com.vincent.protocol.request.LoginRequestPacket;
 import com.vincent.protocol.request.MessageRequestPacket;
