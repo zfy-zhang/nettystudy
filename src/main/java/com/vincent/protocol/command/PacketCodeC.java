@@ -1,7 +1,9 @@
 package com.vincent.protocol.command;
 
 import com.vincent.protocol.request.LoginRequestPacket;
+import com.vincent.protocol.request.MessageRequestPacket;
 import com.vincent.protocol.response.LoginResponsePacket;
+import com.vincent.protocol.response.MessageResponsePacket;
 import com.vincent.serialize.Serializer;
 import com.vincent.serialize.iml.JSONSerializer;
 import io.netty.buffer.ByteBuf;
@@ -10,8 +12,7 @@ import io.netty.buffer.ByteBufAllocator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.vincent.protocol.command.Command.LOGIN_REQUEST;
-import static com.vincent.protocol.command.Command.LOGIN_RESPONSE;
+import static com.vincent.protocol.command.Command.*;
 
 /**
  * Created with IDEA
@@ -21,15 +22,18 @@ import static com.vincent.protocol.command.Command.LOGIN_RESPONSE;
 public class PacketCodeC {
 
     private static final int MAGIC_NUMBER = 0x12345678;
-    private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
-    private static final Map<Byte, Serializer> serializerMap;
-
     public static final PacketCodeC INSTANCE = new PacketCodeC();
 
-    static {
+    private final Map<Byte, Class<? extends Packet>> packetTypeMap;
+    private final Map<Byte, Serializer> serializerMap;
+
+
+    private PacketCodeC() {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
