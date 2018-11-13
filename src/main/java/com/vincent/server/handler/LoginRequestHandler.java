@@ -3,6 +3,7 @@ package com.vincent.server.handler;
 import com.vincent.protocol.PacketCodeC;
 import com.vincent.protocol.request.LoginRequestPacket;
 import com.vincent.protocol.response.LoginResponsePacket;
+import com.vincent.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -25,6 +26,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         if (valid(loginRequestPacket)) {
             loginResponsePacket.setSuccess(true);
             System.out.println(new Date() + ": 登录成功!");
+            LoginUtil.markAsLogin(ctx.channel());
         } else {
             loginResponsePacket.setReason("账号密码校验失败");
             loginResponsePacket.setSuccess(false);
