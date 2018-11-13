@@ -2,14 +2,10 @@ package com.vincent.server;
 
 import com.vincent.codec.PacketDecoder;
 import com.vincent.codec.PacketEncoder;
+import com.vincent.codec.Spliter;
+import com.vincent.server.handler.LifeCyCleTestHandler;
 import com.vincent.server.handler.LoginRequestHandler;
 import com.vincent.server.handler.MessageRequestHandler;
-import com.vincent.server.handler.inbound.InBoundHandlerA;
-import com.vincent.server.handler.inbound.InBoundHandlerB;
-import com.vincent.server.handler.inbound.InBoundHandlerC;
-import com.vincent.server.handler.outbound.OutBoundHandlerA;
-import com.vincent.server.handler.outbound.OutBoundHandlerB;
-import com.vincent.server.handler.outbound.OutBoundHandlerC;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -41,6 +37,8 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
+                        // 添加到第一个
+                        ch.pipeline().addLast(new LifeCyCleTestHandler());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());

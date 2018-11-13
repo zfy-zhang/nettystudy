@@ -4,6 +4,7 @@ import com.vincent.client.handler.LoginResponseHandler;
 import com.vincent.client.handler.MessageResponseHandler;
 import com.vincent.codec.PacketDecoder;
 import com.vincent.codec.PacketEncoder;
+import com.vincent.codec.Spliter;
 import com.vincent.protocol.PacketCodeC;
 import com.vincent.protocol.request.MessageRequestPacket;
 import com.vincent.util.LoginUtil;
@@ -45,6 +46,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MessageResponseHandler());
