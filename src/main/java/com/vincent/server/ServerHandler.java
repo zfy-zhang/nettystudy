@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-    @Override
+   /* @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf requestByteBuf = (ByteBuf) msg;
 
@@ -57,5 +57,5 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private boolean valid(LoginRequestPacket loginRequestPacket) {
         return true;
-    }
+    }*/
 }

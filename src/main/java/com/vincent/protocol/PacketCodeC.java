@@ -40,34 +40,29 @@ public class PacketCodeC {
         serializerMap.put(serializer.getSerializerAlogrithm(), serializer);
     }
 
-    public ByteBuf encode(ByteBufAllocator byteBufAllocator, Packet packet) {
-
-        // 1. 创建 ByteBuf 对象
-        ByteBuf byteBuf = byteBufAllocator.ioBuffer();
-        // 2. 序列化 Java 对象
+    public void encode(ByteBuf byteBuf, Packet packet) {
+        // 1. 序列化 java 对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
 
-        // 3. 实际编码过程
+        // 2. 实际编码过程
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
         byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlogrithm());
         byteBuf.writeByte(packet.getCommand());
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
-
-        return byteBuf;
-
     }
 
 
     public Packet decode(ByteBuf byteBuf) {
         // 跳过 magic number
         byteBuf.skipBytes(4);
+
         // 跳过版本号
         byteBuf.skipBytes(1);
 
-        // 序列化算法标识
-        byte serializerAlgorithm =  byteBuf.readByte();
+        // 序列化算法
+        byte serializeAlgorithm = byteBuf.readByte();
 
         // 指令
         byte command = byteBuf.readByte();
@@ -79,8 +74,7 @@ public class PacketCodeC {
         byteBuf.readBytes(bytes);
 
         Class<? extends Packet> requestType = getRequestType(command);
-
-        Serializer serializer = getSerializer(serializerAlgorithm);
+        Serializer serializer = getSerializer(serializeAlgorithm);
 
         if (requestType != null && serializer != null) {
             return serializer.deserialize(requestType, bytes);
@@ -98,5 +92,4 @@ public class PacketCodeC {
 
         return packetTypeMap.get(command);
     }
-
 }
