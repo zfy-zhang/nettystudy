@@ -3,9 +3,7 @@ package com.vincent.server;
 import com.vincent.codec.PacketDecoder;
 import com.vincent.codec.PacketEncoder;
 import com.vincent.codec.Spliter;
-import com.vincent.server.handler.AuthHandler;
-import com.vincent.server.handler.LoginRequestHandler;
-import com.vincent.server.handler.MessageRequestHandler;
+import com.vincent.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -42,6 +40,8 @@ public class NettyServer {
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new LogoutRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });

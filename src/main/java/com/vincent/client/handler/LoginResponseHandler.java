@@ -1,20 +1,15 @@
 package com.vincent.client.handler;
 
-import com.vincent.protocol.request.LoginRequestPacket;
 import com.vincent.protocol.response.LoginResponsePacket;
 import com.vincent.session.Session;
-import com.vincent.util.LoginUtil;
 import com.vincent.util.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-import java.util.Date;
-import java.util.UUID;
-
 /**
  * Created with IDEA
  * author:vincent
- * Date:2018/11/13
+ * Date:2018/11/15
  */
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
