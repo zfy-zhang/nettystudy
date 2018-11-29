@@ -2,10 +2,7 @@ package com.vincent.client;
 
 import com.vincent.client.console.ConsoleCommandManager;
 import com.vincent.client.console.LoginConsoleCommand;
-import com.vincent.client.handler.CreateGroupResponseHandler;
-import com.vincent.client.handler.LoginResponseHandler;
-import com.vincent.client.handler.LogoutResponseHandler;
-import com.vincent.client.handler.MessageResponseHandler;
+import com.vincent.client.handler.*;
 import com.vincent.codec.PacketDecoder;
 import com.vincent.codec.PacketEncoder;
 import com.vincent.codec.Spliter;
@@ -54,6 +51,8 @@ public class NettyClient {
                         ch.pipeline().addLast(new MessageResponseHandler());
                         ch.pipeline().addLast(new CreateGroupResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
+                        ch.pipeline().addLast(new JoinGroupResponseHandler());
+                        ch.pipeline().addLast(new ListGroupMembersResponseHandler());
                     }
                 });
 
