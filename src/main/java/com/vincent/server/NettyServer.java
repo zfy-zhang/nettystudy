@@ -1,11 +1,11 @@
 package com.vincent.server;
 
-import com.vincent.server.handler.inbound.InBoundHandlerA;
-import com.vincent.server.handler.inbound.InBoundHandlerB;
-import com.vincent.server.handler.inbound.InBoundHandlerC;
-import com.vincent.server.handler.outbound.OutBoundHandlerA;
-import com.vincent.server.handler.outbound.OutBoundHandlerB;
-import com.vincent.server.handler.outbound.OutBoundHandlerC;
+import com.vincent.codec.PacketDecoder;
+import com.vincent.codec.PacketEncoder;
+import com.vincent.codec.Spliter;
+import com.vincent.server.handler.AuthHandler;
+import com.vincent.server.handler.LoginRequestHandler;
+import com.vincent.server.handler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -29,6 +29,18 @@ public class NettyServer {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
+<<<<<<< Updated upstream
+        serverBootstrap.group(boosGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024).childOption(ChannelOption.SO_KEEPALIVE, true).childOption(ChannelOption.TCP_NODELAY, true).childHandler(new ChannelInitializer<NioSocketChannel>() {
+            protected void initChannel(NioSocketChannel ch) {
+                ch.pipeline().addLast(new Spliter());
+                ch.pipeline().addLast(new PacketDecoder());
+                ch.pipeline().addLast(new LoginRequestHandler());
+                ch.pipeline().addLast(new AuthHandler());
+                ch.pipeline().addLast(new MessageRequestHandler());
+                ch.pipeline().addLast(new PacketEncoder());
+            }
+        });
+=======
         serverBootstrap
                 .group(boosGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
@@ -48,6 +60,7 @@ public class NettyServer {
                         ch.pipeline().addLast(new OutBoundHandlerC());
                     }
                 });
+>>>>>>> Stashed changes
 
 
         bind(serverBootstrap, PORT);
@@ -62,5 +75,4 @@ public class NettyServer {
             }
         });
     }
-
 }
